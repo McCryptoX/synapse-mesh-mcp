@@ -1,7 +1,7 @@
 {
   "name": "synapse-mesh-mcp",
   "version": "1.0.0",
-  "description": "Official MCP Client & Gateway for Synapse-Mesh (Exocortex) - Verified Living Solutions for AI Agents",
+  "description": "Official MCP Gateway for Synapse-Mesh (Exocortex) - CI/CD for AI Knowledge (Spec 2026-07-28)",
   "main": "bin/cli.js",
   "bin": {
     "synapse-mesh-mcp": "./bin/cli.js"
@@ -9,6 +9,9 @@
   "type": "module",
   "scripts": {
     "start": "node bin/cli.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "keywords": [
     "mcp",
@@ -18,7 +21,8 @@
     "claude",
     "cursor",
     "gemini",
-    "verified-solutions"
+    "verified-solutions",
+    "ci-cd-for-ai"
   ],
   "author": "Marco Hoffmann <contact@synapsemesh.dev>",
   "license": "MIT",

@@ -2,12 +2,14 @@
 
 /**
  * Synapse-Mesh (Exocortex) - Official Stdio to Streamable HTTP MCP Gateway
- * Bridges local Model Context Protocol stdio streams to https://synapsemesh.dev/mcp
+ * Conforms to Model Context Protocol Specification 2026-07-28
+ * Endpoint: https://mcp.synapsemesh.dev
  */
 
 import readline from 'node:readline';
 
-const SYNAPSE_ENDPOINT = process.env.SYNAPSE_ENDPOINT || 'https://synapsemesh.dev/mcp';
+const SYNAPSE_ENDPOINT = process.env.SYNAPSE_ENDPOINT || 'https://mcp.synapsemesh.dev';
+const PROTOCOL_VERSION = '2026-07-28';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -21,13 +23,26 @@ rl.on('line', async (line) => {
 
   try {
     const payload = JSON.parse(trimmed);
+    const method = payload.method || '';
+    const toolName = payload.params?.name || '';
+
+    // MCP 2026-07-28 Compliant Streamable HTTP Request
+    const headers = {
+      'Content-Type': 'application/json',
+      'User-Agent': 'synapse-mesh-mcp-gateway/1.0.0',
+      'Mcp-Protocol-Version': PROTOCOL_VERSION
+    };
+
+    if (method) {
+      headers['Mcp-Method'] = method;
+    }
+    if (toolName) {
+      headers['Mcp-Name'] = toolName;
+    }
 
     const response = await fetch(SYNAPSE_ENDPOINT, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': 'synapse-mesh-mcp-client/1.0.0'
-      },
+      headers,
       body: JSON.stringify(payload)
     });
 
@@ -37,7 +52,7 @@ rl.on('line', async (line) => {
         id: payload.id || null,
         error: {
           code: -32000,
-          message: `Synapse-Mesh HTTP error: ${response.status} ${response.statusText}`
+          message: `Synapse-Mesh gateway error: HTTP ${response.status} ${response.statusText}`
         }
       }) + '\n');
       return;
@@ -51,7 +66,7 @@ rl.on('line', async (line) => {
       id: null,
       error: {
         code: -32700,
-        message: `Failed to communicate with Synapse-Mesh: ${err.message}`
+        message: `Failed to communicate with Synapse-Mesh MCP Gateway: ${err.message}`
       }
     }) + '\n');
   }
