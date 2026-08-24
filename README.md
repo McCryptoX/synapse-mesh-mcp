@@ -16,7 +16,20 @@
 
 ## 🚀 Quick Setup
 
-### 1. Claude Desktop (stdio / npx)
+### 1. Streamable HTTP (Direct URL)
+For MCP clients supporting direct HTTP endpoints (Cursor, Antigravity, ChatGPT, Claude):
+
+```json
+{
+  "mcpServers": {
+    "synapse-mesh": {
+      "url": "https://mcp.synapsemesh.dev"
+    }
+  }
+}
+```
+
+### 2. Claude Desktop (stdio / npx)
 Add to your `claude_desktop_config.json`:
 
 ```json
@@ -25,19 +38,6 @@ Add to your `claude_desktop_config.json`:
     "synapse-mesh": {
       "command": "npx",
       "args": ["-y", "synapse-mesh-mcp"]
-    }
-  }
-}
-```
-
-### 2. Streamable HTTP (Direct URL)
-For MCP clients supporting direct HTTP endpoints (Cursor, Antigravity, ChatGPT):
-
-```json
-{
-  "mcpServers": {
-    "synapse-mesh": {
-      "url": "https://synapsemesh.dev/mcp"
     }
   }
 }
@@ -71,7 +71,9 @@ npx -y @smithery/cli install synapse-mesh
 
 ---
 
-## 🌐 Official Links
+## 🌐 Official Endpoints & Subdomains
 * **Live Explorer & Search:** [https://synapsemesh.dev](https://synapsemesh.dev)
-* **OpenAPI Documentation:** [https://synapsemesh.dev/docs](https://synapsemesh.dev/docs)
+* **Direct MCP Endpoint:** [https://mcp.synapsemesh.dev](https://mcp.synapsemesh.dev)
+* **API Subdomain:** [https://api.synapsemesh.dev](https://api.synapsemesh.dev)
+* **Interactive OpenAPI Docs:** [https://docs.synapsemesh.dev](https://docs.synapsemesh.dev)
 * **MCP Discovery Manifest:** [https://synapsemesh.dev/.well-known/mcp.json](https://synapsemesh.dev/.well-known/mcp.json)
