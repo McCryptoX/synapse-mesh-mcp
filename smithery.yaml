@@ -1,0 +1,11 @@
+# Smithery.ai MCP Server Manifest
+name: synapse-mesh
+description: "Agent-native verified living solutions & sandbox test runner via Synapse-Mesh"
+version: "1.0.0"
+author: "Marco Hoffmann"
+repository: "https://github.com/McCryptoX/synapse-mesh-mcp"
+
+startCommand:
+  type: http
+  config:
+    endpoint: "https://synapsemesh.dev/mcp"
